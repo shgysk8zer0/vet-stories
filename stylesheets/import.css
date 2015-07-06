@@ -4,10 +4,13 @@
 @import "/stylesheets/core-css/details.css";
 @import "/stylesheets/core-css/dialog.css";
 @import "/stylesheets/core-css/animations.css";
+@import "/stylesheets/core-css/links.css";
 @import "/stylesheets/core-css/class_rules.css";
 @import "/stylesheets/core-css/misc.css";
 @import "/stylesheets/core-css/fonts.css";
 @import "custom.css";
+@import "sidebar.css";
+@import "mobile.css";
 
 :root {
 	/*================= Set color vars here =================*/
