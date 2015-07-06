@@ -14,8 +14,8 @@
 
 :root {
 	/*================= Set color vars here =================*/
-	--default-color: rgb(252, 252, 252);
-	--alt-color: rgb(41, 41, 41);
+	--default-color: #484848;
+	--alt-color: #C3C3C3;
 	--primary-color: rgb(237, 24, 24);
 	--highlight-color: rgb(129, 23, 23);
 	--link-color: hsl(209, 62%, 45%);
@@ -51,8 +51,8 @@
 	--attachmnent-icon: 'A';
 	--fullscreen-icon: '%';
 	/*================== Set cursors here ==================*/
-	--default-cursor: url('../../../images/cursors/Arch-black.svgz'), auto;
-	--pointer: url('../../../images/cursors/3D_hand_cursor.svgz'), pointer;
+	--default-cursor: auto;
+	--pointer: pointer;
 	/*============= Various sizes and positions =============*/
 	--main-width: 90%;
 	--article-width: 67%;
