@@ -1,0 +1,11 @@
+@media (max-width: 800px) {
+	main.flex.row {
+		flex-direction: column;
+	}
+	aside, article {
+		flex-basis: 100%;
+	}
+	aside {
+		order: 2;
+	}
+}

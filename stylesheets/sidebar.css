@@ -1,0 +1,9 @@
+aside {
+	flex-basis: 10%;
+	display: block;
+}
+aside a {
+	display: block;
+	text-align: center;
+	margin: 1em 0;
+}
