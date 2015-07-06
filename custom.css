@@ -1,0 +1,44 @@
+body {
+	min-height: 100vh;
+	background-color: #eaeaea;
+}
+body > header {
+	background: var(--header-bg);
+	color: var(--default-color);
+	align-self: flex-start;
+	flex: 1 0 100%;
+}
+main {
+	flex: 0 1 100%;
+	align-self: center;
+}
+article {
+	margin: 1.5em;
+	flex: 0 1 80%;
+	align-self: center;
+}
+body > footer {
+	background: var(--header-bg);
+	color: var(--default-color);
+	align-self: flex-end;
+	flex: 1 0 100%; 
+}
+section:not(:target) {
+	display: none;
+}
+section:first-of-type a[rel="prev"], section:last-of-type a[rel="next"] {
+	pointer-events: none;
+	cursor: not-allowed;
+}
+.facebook {
+	color: #4862A3;
+}
+.twitter {
+	color: #55ACEE;
+}
+.youtube {
+	color: #D72523;
+}
+.google-plus {
+	color: #DD4B39;
+}
