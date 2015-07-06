@@ -4,7 +4,7 @@ body {
 }
 body > header {
 	background: var(--header-bg);
-	color: var(--default-color);
+	color: var(--alt-color);
 	align-self: flex-start;
 	flex: 1 0 100%;
 }
@@ -20,14 +20,21 @@ body > footer {
 	background: var(--header-bg);
 	color: var(--default-color);
 	align-self: flex-end;
-	flex: 1 0 100%; 
+	flex: 1 0 100%;
 }
 section {
-	font-size: 1.5em;
+	font-size: 1.3em;
 	width: 80%;
 }
 section:not(:target) {
 	display: none;
+}
+section nav {
+	display: flex;
+	justify-content: space-between;
+}
+nav a[rel]::after {
+	font-size: 1.2em;
 }
 section:first-of-type a[rel="prev"], section:last-of-type a[rel="next"] {
 	pointer-events: none;
