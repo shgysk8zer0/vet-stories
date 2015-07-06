@@ -14,14 +14,17 @@ main {
 }
 article {
 	margin: 1.5em;
-	flex: 0 1 80%;
-	align-self: center;
+	align-items: center;
 }
 body > footer {
 	background: var(--header-bg);
 	color: var(--default-color);
 	align-self: flex-end;
 	flex: 1 0 100%; 
+}
+section {
+	font-size: 1.5em;
+	width: 80%;
 }
 section:not(:target) {
 	display: none;
