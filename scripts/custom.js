@@ -4,8 +4,105 @@
 function $(selector) {
 	return document.querySelectorAll(selector);
 }
+function fetchStory(url) {
+	fetch(new URL(url, window.location)).then(function(resp){
+		if (resp.ok && resp.headers.get('Content-Type').startsWith('application/json')) {
+			return resp;
+		} else {
+			throw 'Unable to process request';
+		}
+	}).then(function(resp) {
+		return resp.json();
+	}).then(function(json) {
+		buildArticle(json);
+	}).catch(function(exception) {
+		console.error(exception);
+	});
+}
+function fetchLinks() {
+	fetch(new URL('links.json', window.location)).then(function(resp){
+		if (resp.ok && resp.headers.get('Content-Type').startsWith('application/json')) {
+			return resp;
+		} else {
+			throw 'Unable to process request';
+		}
+	}).then(function(resp) {
+		return resp.json();
+	}).then(function(links) {
+		links.nav.reduce(function(nav, link) {
+			var a = document.createElement('a');
+			a.href = link.href;
+			a.textContent = link.text;
+			nav.appendChild(a);
+			return nav;
+		}, document.querySelector('body > header > nav'));
+		$('body > header a').filter(function(a) {
+			return a.origin === location.origin;
+		}).forEach(function(link) {
+			link.addEventListener('click', function(event) {
+				event.preventDefault();
+				fetchStory(this.href);
+			});
+		})
+		links.sidebar.reduce(function(sidebar, link) {
+			var a = document.createElement('a');
+			a.innerHTML = link.text;
+			a.href = link.href;
+			sidebar.appendChild(a);
+			if ('attributes' in link) {
+				Object.keys(link.attributes).forEach(function(attr) {
+					a.setAttribute(attr, link.attributes[attr]);
+				});
+			}
+			return sidebar;
+		}, document.querySelector('aside'));
+		links.footer.reduce(function(footer, link) {
+			if (link === 'br') {
+				footer.appendChild(document.createElement('br'));
+				return footer;
+			}
+			var a = document.createElement('a');
+			var icon = new URL('images/combined.svg', window.location);
+			footer.appendChild(a);
+			a.href = link.href || '#';
+			if ('svg' in link) {
+				var dom = new DOMParser();
+				var svg = document.createElement('svg');
+				var use = document.createElement('use');
+				svg.appendChild(use);
+				icon.hash = '#' + link.svg;
+				svg.classList.add('logo');
+				svg.setAttribute('version', '1.1');
+				svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+				svg.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+				use.setAttribute('xlink:href', icon);
+				var doc = dom.parseFromString(svg.outerHTML, 'image/svg+xml');
+				a.appendChild(document.importNode(doc.documentElement, true));
+			} else if ('img' in link) {
+				var img = new Image();
+				img.src = link.img;
+				img.addEventListener('load', function() {
+					a.appendChild(img);
+				})
+			} else if ('html' in link) {
+				a.innerHTML = link.html;
+			} else if ('text' in link) {
+				a.textContent = link.text;
+			}
+			if ('attributes' in link) {
+				Object.keys(link.attributes).forEach(function(attr) {
+					a.setAttribute(attr, link.attributes[attr]);
+				});
+			}
+			return footer;
+		}, document.querySelector('body > footer'));
+	}).catch(function(exception) {
+		console.error(exception);
+	});
+}
 function buildArticle(story) {
 	var url = new URL(window.location.href);
+	document.title = story.title + ' - ' + story.author + ' | Vet Stories';
 	var container = document.querySelector('[itemprop="text"]');
 	var header = document.createElement('header');
 	var footer = document.createElement('footer');
@@ -87,26 +184,6 @@ function buildArticle(story) {
 	window.location.replace(url);
 }
 window.addEventListener('load', function() {
-	var nav = document.createElement('nav');
-	document.querySelector('body > header').appendChild(nav);
-	$('article > section[id]').forEach(function(section) {
-		var link = document.createElement('a');
-		link.href = '#' + section.id;
-		link.textContent = section.id;
-		nav.appendChild(link);
-	});
-	var url = new URL('stories/lorem-ipsum.json', window.location);
-	fetch(url).then(function(resp){
-		if (resp.ok && resp.headers.get('Content-Type').startsWith('application/json')) {
-			return resp;
-		} else {
-			throw 'Unable to process request';
-		}
-	}).then(function(resp) {
-		return resp.json();
-	}).then(function(json) {
-		buildArticle(json);
-	}).catch(function(exception) {
-		console.error(exception);
-	})
+	fetchStory('stories/lorem-ipsum.json');
+	fetchLinks();
 });
