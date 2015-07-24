@@ -1,0 +1,22 @@
+{
+	"nav": [
+		{"text": "Lorem Ipsum", "href": "stories/lorem-ipsum.json"},
+		{"text": "Building the Site", "href": "stories/chris-zuber.json"}
+	],
+	"sidebar": [
+		{"text": "link 1", "href": "#"},
+		{"text": "link 2", "href": "#"},
+		{"text": "link 3", "href": "#"},
+		{"text": "link 4", "href": "#"}
+	],
+	"footer": [
+		{"text": "Honor Flight Network", "href": "http://www.honorflight.org/"},
+		"br",
+		{"svg": "Facebook", "href": "#"},
+		{"svg": "twitter", "href": "#"},
+		{"svg": "YouTube"},
+		{"svg": "Google_plus"},
+		{"svg": "mark-github", "href": "https://github.com/shgysk8zer0/vet-stories", "attributes": {"target": "_blank"}},
+		{"svg": "mail", "href": "mailto:shgysk8zer0@gmail.com", "target": "_blank"}
+	]
+}
