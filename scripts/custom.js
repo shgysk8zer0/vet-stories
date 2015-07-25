@@ -4,6 +4,30 @@
 function $(selector) {
 	return document.querySelectorAll(selector);
 }
+function URLQuery(url) {
+	if (typeof url !== 'string') {
+		url = window.location.href;
+	}
+	if (url.includes('?')) {
+		url = url.substring(url.indexOf('?') + 1);
+		if (url.includes('#')) {
+			url = url.substring(0, url.indexOf('#'));
+		}
+		return url.split('&').reduce(function(query, param) {
+			param = param.split('=');
+			query[param.shift()] = param.pop();
+			return query;
+		}, this);
+	} else {
+		return {};
+	}
+}
+URLQuery.prototype.toString = function() {
+	return '?' + Object.keys(this).reduce(function(query, param) {
+		query.push(param + '=' + this[param] || '');
+		return query;
+	}, []).join('&');
+}
 function fetchStory(url) {
 	fetch(new URL(url, window.location)).then(function(resp){
 		if (resp.ok && resp.headers.get('Content-Type').startsWith('application/json')) {
@@ -157,12 +181,10 @@ function buildArticle(story) {
 			this.width = this.naturalWidth;
 			this.height = this.naturalHeight;
 		});
-		delete img;
 	}
 	var title = document.createElement('h2');
 	container.appendChild(title);
 	title.textContent = story.title;
-	delete title;
 	story.chapters.forEach(function(segment, chapter, chapters) {
 		var section  = document.createElement('section');
 		var nav = document.createElement('nav');
@@ -184,6 +206,9 @@ function buildArticle(story) {
 	window.location.replace(url);
 }
 window.addEventListener('load', function() {
-	fetchStory('stories/lorem-ipsum.json');
+	var query = new URLQuery();
+	if ('story' in query) {
+		fetchStory('stories/' + query.story + '.json');
+	}
 	fetchLinks();
 });
