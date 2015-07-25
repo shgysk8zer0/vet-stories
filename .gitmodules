@@ -13,3 +13,6 @@
 [submodule "stylesheets/normalize"]
 	path = stylesheets/normalize
 	url = git://github.com/necolas/normalize.css.git
+[submodule "images/cursors"]
+	path = images/cursors
+	url = git://github.com/shgysk8zer0/cursors.git
