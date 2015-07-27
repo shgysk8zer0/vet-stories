@@ -30,7 +30,7 @@ URLQuery.prototype.toString = function() {
 	return "?" + Object.keys(this).reduce(function(query, param) {
 		query.push(param + "=" + this[param] || "");
 		return query;
-	}, []).join("&");
+	}.bind(this), []).join("&");
 };
 function buildArticle(story) {
 	"use strict";
@@ -45,7 +45,6 @@ function buildArticle(story) {
 	container.childNodes.filter(function(node) {
 		return node.nodeType === 1;
 	}).forEach(function(node) {
-		console.log(node);
 		node.parentElement.removeChild(node);
 	});
 	ccLogo.src = "https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png";
@@ -86,7 +85,6 @@ function buildArticle(story) {
 		header.appendChild(img);
 		img.alt = story.author;
 		img.addEventListener("load", function() {
-			console.log(this);
 			this.width = this.naturalWidth;
 			this.height = this.naturalHeight;
 		});
