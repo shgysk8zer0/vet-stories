@@ -21,8 +21,6 @@ function URLQuery(url) {
 			query[param.shift()] = param.pop();
 			return query;
 		}, this);
-	} else {
-		return {};
 	}
 }
 URLQuery.prototype.toString = function() {
