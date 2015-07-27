@@ -15,7 +15,8 @@
 	    },
 	    "rules": {
 	        "semi": 2,
-			"strict": 1
+			"strict": 1,
+			"no-console": 0
 	    },
 		"env": {
 	        "browser": true,
