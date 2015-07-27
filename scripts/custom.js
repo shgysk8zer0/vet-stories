@@ -1,4 +1,3 @@
-/*eslint-disable no-alert, no-console */
 ["map", "reduce", "filter", "forEach", "some", "every"].forEach(function(method) {
 	"use strict";
 	NodeList.prototype[method] = Array.prototype[method];
